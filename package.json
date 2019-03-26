@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/afdallismen/pair-project-phase-1/issues"
   },
-  "homepage": "https://github.com/afdallismen/pair-project-phase-1#readme"
+  "homepage": "https://github.com/afdallismen/pair-project-phase-1#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "pg": "^7.9.0",
+    "sequelize": "^5.2.0"
+  }
 }

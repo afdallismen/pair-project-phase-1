@@ -1,0 +1,26 @@
+<%- include('../../partials/head') %>
+
+<p>All Categories</p>
+<p><a href="/categories/add">Add new category</a></p>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% categories.forEach(category => { %>
+    <tr>
+      <td><%= category.id %></td>
+      <td><%= category.name %></td>
+      <td>
+        <a href="/categories/<%= category.id %>/edit">Edit</a> | 
+        <a href="/categories/<%= category.id %>/delete">Delete</a></td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>
+
+<%- include('../../partials/foot') %>

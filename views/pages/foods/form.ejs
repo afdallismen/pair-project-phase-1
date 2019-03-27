@@ -1,0 +1,35 @@
+<%- include('../../partials/head') %>
+
+<p>Form Food</p>
+<form method="POST" action="#">
+  <p><label for="name">Name</label><br>
+  <input
+    type="text"
+    id="name"
+    name="name"
+    value="<%= typeof food !== 'undefined' ? food.name : '' %>"></p>
+  <p><label for="type">Type</label><br>
+  <select id="type" name="type">
+    <option value="">....</option>
+    <% types.forEach(type => { %>
+      <option value="<%= type %>"><%= type %></option>
+    <% }) %>
+  </select></p>
+  <p><label for="category">Category</label><br>
+  <select id="category" name="categoryId">
+    <option value="">....</option>
+    <% categories.forEach(category => { %>
+      <option value="<%= category.id %>"><%= category.name %></option>
+    <% }) %>
+  </select></p>
+  <p><label for="restaurant">Restaurant</label><br>
+  <select id="restaurant" name="restaurantId">
+    <option value="">....</option>
+    <% restaurants.forEach(restaurant => { %>
+      <option value="<%= restaurant.id %>"><%= restaurant.name %></option>
+    <% }) %>
+  </select></p>
+  <p><input type="submit" value="ADD FOOD"></p>
+</form>
+
+<%- include('../../partials/foot') %>

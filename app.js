@@ -10,6 +10,7 @@ const PORT = 3000
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded())
+app.use(express.static('public'))
 app.use('/', routes)
 
 app.use(session({
@@ -27,6 +28,10 @@ app.use('/review', isLogin , require('./routes/reviewRoute'))
 
 app.get('/', (req, res)=>{
     res.render('index')
+})
+
+app.get('/signup', (req, res) => {
+    res.render('signup')
 })
 
 app.get('/login', (req, res)=>{

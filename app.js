@@ -1,21 +1,18 @@
 const express = require('express')
-const bodyParser = require('body-parser')
-const port = 8000
+const routes = require('./routes')
 
-let app = express()
-app.set('view engine','ejs')
-app.use(bodyParser.urlencoded({extended: false}))
-app.use(bodyParser.json())
+const app = express()
+const PORT = 3000
 
+app.set('view engine', 'ejs')
+app.use(express.urlencoded())
+app.use('/', routes)
 
 app.use('/user', require('./routes/userRoute'))
 app.use('/restaurant', require('./routes/restaurantRoute'))
 app.use('/review', require('./routes/reviewRoute'))
 
-app.get('/', (req, res)=>{
-    res.render('./index.ejs')
+
+app.listen(PORT, _ => {
+  console.log('Listening in port %i...', PORT)
 })
-
-
-
-app.listen(port,()=>{console.log(`SERVER IS RUNNING IN PORT ${port} . . . `)})

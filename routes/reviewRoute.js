@@ -15,19 +15,37 @@ router.get('/', (req, res)=>{
     })
 })
 
-router.get('/add', (req, res)=>{
-    res.render("pages/review/addReview", {err:null})
+router.get('/add/:id', (req, res)=>{
+    Model.Restaurant.findByPk(req.params.id)
+    .then(data=>{
+        res.render("pages/review/addReview", {data})
+    })
 })
 
-router.post('/add', (req, res)=>{
+router.post('/add/:id', (req, res)=>{
+    let dataRestaurant
     Model.Review.create({
-        CreatorId: req.body.creatorId,
-        RestaurantId: req.body.restaurantId,
+        CreatorId: req.session.idLogin,
+        RestaurantId: req.params.id,
         rating: req.body.rating,
         description: req.body.description,
     })
     .then(data=>{
-        res.redirect('/pages/review/add')
+        return Model.Restaurant.findByPk(Number(req.params.id))
+    })
+    .then(data=>{
+        dataRestaurant = data
+        return Model.Review.findAll({
+            include: [Model.User],
+            where:{
+                RestaurantId: Number(req.params.id)
+            },
+            order :[['updatedAt','desc']]
+        })
+    })
+    .then(data=>{
+        res.render('pages/restaurant/profilRestaurant', {dataRestaurant, data})
+
     })
     .catch(err=>{
         // res.render('restaurant/addRestaurant')

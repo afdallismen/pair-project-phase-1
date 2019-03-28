@@ -14,11 +14,11 @@ router.get('/', (req, res)=>{
     })
 })
 
-router.get('/add', (req, res)=>{
+router.get('/add/:id', (req, res)=>{
     res.render("pages/restaurant/addRestaurant")
 })
 
-router.post('/add', (req, res)=>{
+router.post('/add/:id', (req, res)=>{
     Model.Restaurant.create({
         name: req.body.name,
         ownerId: req.session.idLogin,
@@ -36,47 +36,68 @@ router.post('/add', (req, res)=>{
                     // include: [Model.Restaurant]
                 // }
             ]})
-        
-        // res.render('restaurant/listRestaurant', {data})
-        // res.redirect('/')
     })
-    .then(datas=>{
-        res.send(datas)
-        // res.redirect(`user/${datas.id}`, {datas})
+    .then(data=>{
+        res.render('pages/user/profilUser',  {data})
 
     })
 })
 
 router.get('/edit/:id', (req, res)=>{
-    Model.Restaurant.findByPk(Number(req.params.id), {include : Model.User})
+    let id = req.params.id.split('&')
+
+    Model.Restaurant.findByPk(id[0], {include : Model.User})
     .then(data=>{
         res.render('pages/restaurant/editRestaurant', {data})
     })
 })
 
 router.post('/edit/:id', (req, res)=>{
-    Model.Restaurant.findByPk(Number(req.params.id))
+    let id = req.params.id.split('&')
+
+    Model.Restaurant.findByPk(id[0])
     .then(data=>{
         data.name= req.body.name,
         data.address= req.body.address,
         data.openAt= req.body.openAt,
         data.closeAt= req.body.closeAt,
         data.updatedAt = new Date
-        data.save()
+        return data.save()
+    })
+    .then(datas=>{
+        return Model.User.findByPk(id[1], {
+            include:[
+                {
+                    model: Model.Restaurant,
+                    // include: [Model.Restaurant]
+                }
+            ]})
     })
     .then(data=>{
-        res.redirect('/pages/restaurant')
+        // res.redirect('user', {data})
+
+        res.render('pages/user/profilUser', {data})
     })
 })
 
 router.get('/delete/:id', (req, res)=>{
+    let id = req.params.id.split('&')
     Model.Restaurant.destroy({ 
         where : {
-            id : req.params.id
+            id : id[0]
         }
     })
+    .then(datas=>{
+        return Model.User.findByPk(id[1], {
+            include:[
+                {
+                    model: Model.Restaurant,
+                    // include: [Model.Restaurant]
+                }
+            ]})
+    })
     .then(data=>{
-        res.redirect('./')
+        res.render('pages/user/profilUser', {data})
     })
 })
 

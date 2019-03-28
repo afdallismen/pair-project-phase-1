@@ -13,10 +13,8 @@
 <body>
     <h2>Add Review</h2>
     <form method="POST" action="" class='form'>
-        <label for="name">Creator Id</label>
-        <input type="text" name="creatorId" placeholder="1"><br />
-        <label for="ownerId">Owner Id</label>
-        <input type="text" name="restaurantId" placeholder="1"><br />
+        <label for="ownerId">Restaurant</label>
+        <input type="text" value='<%= data.name %>' disabled><br />
         <label for="rating">Rating</label>
         <input type="text" name="rating" placeholder="1 until 5"><br />
         <label for="description">Description</label>

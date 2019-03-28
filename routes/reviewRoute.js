@@ -16,7 +16,7 @@ router.get('/', (req, res)=>{
 })
 
 router.get('/add', (req, res)=>{
-    res.render("review/addReview", {err:null})
+    res.render("pages/review/addReview", {err:null})
 })
 
 router.post('/add', (req, res)=>{
@@ -27,17 +27,17 @@ router.post('/add', (req, res)=>{
         description: req.body.description,
     })
     .then(data=>{
-        res.redirect('/review/add')
+        res.redirect('/pages/review/add')
     })
     .catch(err=>{
-        res.render('restaurant/addRestaurant')
+        // res.render('restaurant/addRestaurant')
     })
 })
 
 router.get('/edit/:id', (req, res)=>{
     Model.Review.findByPk(Number(req.params.id))
     .then(data=>{
-        res.render('review/editReview', {data})
+        res.render('pages/review/editReview', {data})
     })
 })
 
@@ -51,7 +51,7 @@ router.post('/edit/:id', (req, res)=>{
         data.save()
     })
     .then(data=>{
-        res.redirect('/review')
+        res.redirect('/pages/review')
     })
 })
 
@@ -62,7 +62,7 @@ router.get('/delete/:id', (req, res)=>{
         }
     })
     .then(data=>{
-        res.redirect('/review')
+        res.redirect('/pages/review')
     })
 })
 module.exports = router

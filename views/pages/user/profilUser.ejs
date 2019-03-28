@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profil User</title>
+</head>
+<body>
+    <a href="edit/<%= data.id %>">Edit Profil</a>
+    <a href="/restaurant/add/">Add Restaurant</a>
+
+    <a href="logout/<%= data.id %>">Logout</a>
+
+    <h1>PROFIL USER</h1>
+    Hai <%= data.name %><br />
+    Restaurant kamu <br />
+    <% data.Restaurants.forEach((el, index)=>{ %>
+        <%= index+1 + ". " + el.name %>   <a href="/restaurant/delete/<%= el.id %> ">Delete</a>   <br />
+
+    <% }) %>
+</body>
+</html>

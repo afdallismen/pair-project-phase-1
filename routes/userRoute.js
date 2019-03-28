@@ -86,7 +86,7 @@ router.get('/logout/:id', (req, res)=>{
     
     req.session.login = false
     req.session.username = ''
-    res.redirect(`/`)
+    res.redirect(`/login`)
         
 })
 

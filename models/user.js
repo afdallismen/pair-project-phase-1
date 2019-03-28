@@ -22,7 +22,11 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING
   }, {
     hooks:{
-      beforeBulkCreate:(user, option)=>{
+      beforeCreate:(user, option)=>{
+        let salt = bcrypt.genSaltSync(10)
+        user.password = bcrypt.hashSync(user.password,salt)
+      },
+      beforeSave:(user, option)=>{
         let salt = bcrypt.genSaltSync(10)
         user.password = bcrypt.hashSync(user.password,salt)
       }
@@ -30,8 +34,10 @@ module.exports = (sequelize, DataTypes) => {
   });
   User.associate = function(models) {
     // associations can be defined here
-    User.hasOne(models.Restaurant, {foreignKey: 'ownerId'})
+    User.hasMany(models.Restaurant, {foreignKey: 'ownerId'})
     User.hasMany(models.Review, {foreignKey: 'CreatorId' })
+
+    // models.User.belongsToMany(models.Restaurant, {through: Review, foreignKey: 'CreatorId' })
   };
   return User;
 };

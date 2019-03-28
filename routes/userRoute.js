@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const Model = require('../models')
 const Sequelize = require('sequelize');
+const bcrypt = require('bcryptjs')
 
 
 router.get('/', (req, res)=>{
@@ -12,12 +13,12 @@ router.get('/', (req, res)=>{
     }
     )
     .then(data=>{
-        res.render('user/listUser', {data, err:null})
+        res.render('pages/user/listUser', {data, err:null})
     })
 })
 
 router.get('/add', (req, res)=>{
-    res.render("user/addUser", {err:null})
+    res.render("pages/user/addUser", {err:null})
 })
 
 router.post('/add', (req, res)=>{
@@ -27,17 +28,18 @@ router.post('/add', (req, res)=>{
         password: req.body.password
     })
     .then(data=>{
+        // res.render('/')
         res.redirect('/user')
     })
     .catch(err=>{
-        res.render('user/addUser', {err:"Email Sudah ada"})
+        res.render('pages/user/addUser', {err:"Email Sudah ada"})
     })
 })
 
 router.get('/edit/:id', (req, res)=>{
     Model.User.findByPk(Number(req.params.id))
     .then(data=>{
-        res.render('user/editUser', {data})
+        res.render('pages/user/editUser', {data})
     })
 })
 
@@ -51,7 +53,7 @@ router.post('/edit/:id', (req, res)=>{
         data.save()
     })
     .then(data=>{
-        res.redirect('/user')
+        res.redirect(`/user/${req.params.id}`)
     })
 })
 
@@ -62,7 +64,30 @@ router.get('/delete/:id', (req, res)=>{
         }
     })
     .then(data=>{
-        res.redirect('/user')
+        res.redirect('/pages/user')
     })
 })
+
+router.get('/:id', (req, res)=>{
+    Model.User.findByPk(req.params.id, {
+        include:[
+            {
+                model: Model.Restaurant,
+                // include: [Model.Restaurant]
+            }
+        ]})
+    .then(data=>{
+        // res.send(data)
+        res.render('pages/user/profilUser', {data})
+    })
+})
+
+router.get('/logout/:id', (req, res)=>{
+    
+    req.session.login = false
+    req.session.username = ''
+    res.redirect(`/`)
+        
+})
+
 module.exports = router

@@ -8,9 +8,13 @@ module.exports = (sequelize, DataTypes) => {
     closeAt: DataTypes.STRING
   }, {});
   Restaurant.associate = function(models) {
-    // associations can be defined here
-    Restaurant.belongsTo(models.User, {foreignKey: 'ownerId'})
-    Restaurant.hasMany(models.Review)
+    // associations can be defined here 
+    Restaurant.belongsTo(models.User, {foreignKey: 'ownerId'}) //Kepemilikan
+    
+    Restaurant.hasMany(models.Review, {foreignKey: 'RestaurantId'})
+
+    // Restaurant.belongsTo(models.User, {through: Review, foreignKey: 'RestaurantId'})    //untuk review
+
   };
   return Restaurant;
 };

@@ -1,0 +1,14 @@
+<%- include('../../partials/head') %>
+
+<p>Form Category</p>
+<form method="POST" action="#">
+  <p><label for="name">Name</label><br>
+  <input
+    type="text"
+    id="name"
+    name="name"
+    value="<%= typeof category !== 'undefined' ? category.name : '' %>"></p>
+  <p><input type="submit" value="ADD CATEGORY"></p>
+</form>
+
+<%- include('../../partials/foot') %>

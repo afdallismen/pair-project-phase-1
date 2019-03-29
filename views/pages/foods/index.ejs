@@ -1,0 +1,31 @@
+<%- include('../../partials/head') %>
+
+<p>All Foods</p>
+<p><a href="/foods/add">Add new food</a></p>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Category</th>
+      <th>Restaurant</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% foods.forEach(food => { %>
+    <tr>
+      <td><%= food.id %></td>
+      <td><%= food.name %></td>
+      <td><%= food.type %></td>
+      <td><%= food.Category.name%></td>
+      <td><%= food.Restaurant.name %></td>
+      <td><a href="/foods/<%= food.id %>/edit">Edit</a> | 
+        <a href="/foods/<%= food.id %>/delete">Delete</a></td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>
+
+<%- include('../../partials/foot') %>

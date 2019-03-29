@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>List User</title>
+</head>
+<body>
+    <a href="/restaurant/add">Add Restaurant</a>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Restaurant Name</th>
+                <th>Owner</th>
+                <th>Address</th>
+                <th>Open At</th>
+                <th>Close At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% data.forEach((element, index)=>{ %>
+                <tr>
+                    <td> <%= index + 1 %> </td>
+                    <td> <%= element.name %> </td>
+                    <td> <%= element.User.name %> </td>
+                    <td> <%= element.address %> </td>
+                    <td> <%= element.openAt %> </td>
+                    <td> <%= element.closeAt %> </td>
+                    <td> <a href="/restaurant/edit/<%= element.id %> ">Edit</a>  
+                        <a href="/restaurant/delete/<%= element.id %> ">Delete</a>  </td>
+                </tr>
+            <% }) %>
+        </tbody>
+
+    </table>
+</body>
+</html>

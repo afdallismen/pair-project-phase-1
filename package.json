@@ -1,0 +1,29 @@
+{
+  "name": "pair-project-phase-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/afdallismen/pair-project-phase-1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afdallismen/pair-project-phase-1/issues"
+  },
+  "homepage": "https://github.com/afdallismen/pair-project-phase-1#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "faker": "^4.1.0",
+    "pg": "^7.9.0",
+    "sequelize": "^5.2.0"
+  }
+}

@@ -37,6 +37,18 @@ app.post('/signup', (req, res)=>{
     })
 })
 
+app.get('/user/logout/:id', (req, res)=>{
+    
+    req.session.login = false
+    req.session.username = ''
+    app.locals.login = false
+    app.locals.username = null
+    app.locals.idLogin = null
+    res.redirect(`/`)
+        
+})
+
+
 app.use('/user', isLogin , require('./routes/userRoute'))
 app.use('/restaurant', require('./routes/restaurantRoute'))
 app.use('/review', isLogin , require('./routes/reviewRoute'))

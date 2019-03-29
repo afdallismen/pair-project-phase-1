@@ -15,8 +15,8 @@
       class="search-btn col btn waves-effect waves-dark amber accent-3 black-text darken4"
       type="submit">Search</button>
     <div class="col center-align">|</div>
-    <% if (typeof locals.login !== 'undefined') { %>
-      <a href="#" id="dropdown-trigger"><%= locals.username %></a>
+    <% if (typeof locals.login !== 'undefined' && locals.login== true) { %>
+      <a href="/user/<%= locals.idLogin %>" id="dropdown-trigger"><%= locals.username %></a>
       <div class="col center-align">|</div> 
       <a href="/user/logout/<%= locals.idLogin %>" id="dropdown-trigger">Logout</a>
     <% } else { %>

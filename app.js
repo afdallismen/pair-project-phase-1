@@ -17,8 +17,8 @@ app.use(session({
     secret : "login"
 }))
 
-
 app.use('/user', isLogin , require('./routes/userRoute'))
+// app.use('/user', require('./routes/userRoute'))
 app.use('/restaurant', isLogin , require('./routes/restaurantRoute'))
 app.use('/review', isLogin , require('./routes/reviewRoute'))
 
@@ -47,12 +47,15 @@ app.post('/login', (req, res)=>{
     .then(data=>{
         let check = bcrypt.compareSync(req.body.password, data.password)
 
-        if(check){
-            req.session.login = true,
-            req.session.username = data.username,
+        if (check) {
+            req.session.login = true
+            req.session.username = data.username
             req.session.idLogin = data.id
+            app.locals.idLogin = data.id
+            app.locals.login = true
+            app.locals.username = data.username
             res.redirect(`/user/${data.id}`)
-        }else{
+        } else {
             res.redirect('login')
         }
     })

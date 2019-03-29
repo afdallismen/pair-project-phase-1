@@ -45,7 +45,6 @@ router.post('/add/:id', (req, res)=>{
     })
     .then(data=>{
         res.render('pages/restaurant/profilRestaurant', {dataRestaurant, data})
-
     })
     .catch(err=>{
         // res.render('restaurant/addRestaurant')

@@ -3,10 +3,15 @@ const routes = require('./routes')
 const session = require('express-session')
 const isLogin = require('./middleware/login')
 const Model = require('./models')
+const Sequelize = require('sequelize');
 const bcrypt = require('bcryptjs')
+const Op = Sequelize.Op
+
 
 const app = express()
 const PORT = 3000
+
+app.locals.isLogin = isLogin
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded())
@@ -17,9 +22,23 @@ app.use(session({
     secret : "login"
 }))
 
+
+app.post('/signup', (req, res)=>{
+    Model.User.create({
+        name: req.body.name,
+        username: req.body.username,
+        password: req.body.password
+    })
+    .then(data=>{
+        res.redirect('/')
+    })
+    .catch(err=>{
+        res.render('signup', {err:"Username Sudah ada"})
+    })
+})
+
 app.use('/user', isLogin , require('./routes/userRoute'))
-// app.use('/user', require('./routes/userRoute'))
-app.use('/restaurant', isLogin , require('./routes/restaurantRoute'))
+app.use('/restaurant', require('./routes/restaurantRoute'))
 app.use('/review', isLogin , require('./routes/reviewRoute'))
 
 // app.use('/user',  require('./routes/userRoute'))
@@ -28,6 +47,14 @@ app.use('/review', isLogin , require('./routes/reviewRoute'))
 
 app.get('/', (req, res)=>{
     res.render('index')
+})
+
+app.get('/search', (req, res)=>{
+    Model.Restaurant.findAll({where : { name : {[Op.iLike]: `%${req.query.search}%`} }})
+    .then(data=>{
+        res.render('search', {data})
+        // res.send(data)
+    })
 })
 
 app.get('/signup', (req, res) => {

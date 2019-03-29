@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const Model = require('../models')
+const isLogin = require('../middleware/login')
+
 
 router.get('/', (req, res)=>{
     Model.Restaurant.findAll(
@@ -14,11 +16,11 @@ router.get('/', (req, res)=>{
     })
 })
 
-router.get('/add/:id', (req, res)=>{
+router.get('/add/:id', isLogin, (req, res)=>{
     res.render("pages/restaurant/addRestaurant")
 })
 
-router.post('/add/:id', (req, res)=>{
+router.post('/add/:id', isLogin, (req, res)=>{
     Model.Restaurant.create({
         name: req.body.name,
         ownerId: req.session.idLogin,
@@ -43,7 +45,7 @@ router.post('/add/:id', (req, res)=>{
     })
 })
 
-router.get('/edit/:id', (req, res)=>{
+router.get('/edit/:id', isLogin, (req, res)=>{
     let id = req.params.id.split('&')
 
     Model.Restaurant.findByPk(id[0], {include : Model.User})
@@ -52,7 +54,7 @@ router.get('/edit/:id', (req, res)=>{
     })
 })
 
-router.post('/edit/:id', (req, res)=>{
+router.post('/edit/:id', isLogin, (req, res)=>{
     let id = req.params.id.split('&')
 
     Model.Restaurant.findByPk(id[0])
@@ -80,7 +82,7 @@ router.post('/edit/:id', (req, res)=>{
     })
 })
 
-router.get('/delete/:id', (req, res)=>{
+router.get('/delete/:id', isLogin, (req, res)=>{
     let id = req.params.id.split('&')
     Model.Restaurant.destroy({ 
         where : {
@@ -116,18 +118,7 @@ router.get('/:id', (req, res)=>{
         })
     })
     .then(data=>{
-        // res.send(data)
-        // datas = data.slice()
-        // data = data.map(element=>{
-        //     return element.getUser()
-        // })
-        // return Promise.all(data)
-        // .then(user=>{
-            // res.send(data)
         res.render('pages/restaurant/profilRestaurant', {dataRestaurant, data})
-        // res.send(user)
-    // })
-
     })
 })
 

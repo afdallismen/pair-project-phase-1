@@ -1,26 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Profil User</title>
-</head>
-<body>
-    <a href="/user/edit/<%= data.id %>">Edit Profil</a>
-    <a href="/restaurant/add/<%= data.id %>">Add Restaurant</a>
-
-    <a href="/user/logout/<%= data.id %>">Logout</a>
-
-    <h1>PROFIL USER</h1>
-    Hai <%= data.name %><br />
-    Restaurant kamu <br />
-    <% data.Restaurants.forEach((el, index)=>{ %>
-        <%= index+1 %>
-        <a href="/restaurant/<%= el.id %> "><%= el.name %></a>
-        <a href="/restaurant/edit/<%= el.id  + '&' + data.id %> ">Edit</a>   
-        <a href="/restaurant/delete/<%= el.id + '&' + data.id %> ">Delete</a>   <br />
-
-    <% }) %>
-</body>
-</html>
+<%- include('../../partials/head') %>
+<%- include('../../partials/header') %>
+<div class="container">
+  <h4>Profile</h4>
+  <h6>Hai <u><%= data.name %> !</u></h6>
+  <h6>Restaurant kamu : </h6>
+  <div class="section row grey lighten-3">
+  <% data.Restaurants.forEach((el, index)=>{ %>
+    <div class="col s4">
+      <div class="card">
+        <div class="card-image">
+          <img src="https://lorempixel.com/320/160/food">
+          <span class="card-title"><%= el.name %></span>
+        </div>
+        <div class="card-action">
+          <a href="/restaurant/edit/<%= el.id  + '&' + data.id %> ">Edit</a>   
+          <a href="/restaurant/delete/<%= el.id + '&' + data.id %> ">Delete</a>
+        </div>
+      </div>
+    </div>
+  <% }) %>
+  </div>
+</div>
+<%- include('../../partials/foot') %>

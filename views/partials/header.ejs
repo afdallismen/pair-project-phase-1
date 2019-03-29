@@ -13,14 +13,17 @@
       class="search-btn col btn waves-effect waves-dark amber accent-3 black-text darken4"
       type="submit">Search</button>
     <div class="col center-align">|</div>
-    <!-- <a href="#" id="dropdown-trigger">Afdal Lismen</a>
-    <div class="col center-align">|</div> 
-    <a href="#" id="dropdown-trigger">Logout</a> -->
-    <button
-      type="button"
-      id="login-btn"
-      class="left col btn waves-effect waves-dark teal">login</button>
-    <a href="/signup" class="col">Sign Up</a>
+    <% if (typeof locals.login !== 'undefined') { %>
+      <a href="#" id="dropdown-trigger"><%= locals.username %></a>
+      <div class="col center-align">|</div> 
+      <a href="/user/logout/<%= locals.idLogin %>" id="dropdown-trigger">Logout</a>
+    <% } else { %>
+      <button
+        type="button"
+        id="login-btn"
+        class="left col btn waves-effect waves-dark teal">login</button>
+      <a href="/signup" class="col">Sign Up</a>
+    <% } %>
   </form>
 </div>
 <div class="divider"></div>

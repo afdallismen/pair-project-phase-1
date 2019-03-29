@@ -17,24 +17,7 @@ router.get('/', (req, res)=>{
     })
 })
 
-router.get('/add', (req, res)=>{
-    res.render("pages/user/addUser", {err:null})
-})
 
-router.post('/add', (req, res)=>{
-    Model.User.create({
-        name: req.body.name,
-        username: req.body.username,
-        password: req.body.password
-    })
-    .then(data=>{
-        // res.render('/')
-        res.redirect('/user')
-    })
-    .catch(err=>{
-        res.render('pages/user/addUser', {err:"Email Sudah ada"})
-    })
-})
 
 router.get('/edit/:id', (req, res)=>{
     Model.User.findByPk(Number(req.params.id))

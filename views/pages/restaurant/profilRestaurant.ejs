@@ -1,38 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-    <% include('../../partials/head') %>
-<body>
-    <div class="container-fluid" >
-        <!-- Content here -->
-        <h2><%= dataRestaurant.name %></h2>
-        <h4><%= dataRestaurant.address %></h4>
-        <% if (Number(dataRestaurant.openAt.slice(0,2)) <= Number(new Date().getHours()) && Number(dataRestaurant.closeAt.slice(0,2)) >= new Date().getHours()) { %>
-            <h4 style="color:green">OPEN</h4>
-        <% } else { %>
-            <h4 style="color:red">CLOSE</h4>    
-        <% } %>
-      </div>
-    
-      <a href="/review/add/<%= dataRestaurant.id %>">Add Review</a>
-    <table border="3">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Rating</th>
-                <th>Deskripsi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% data.forEach(element=>{ %>
-                <tr>
-                    <td><%= element.User.name %> </td>
-                    <td><%= element.rating  %></td>
-                    <td><%= element.description  %></td>                
-                </tr>
-            <% })  %>
-        </tbody>
-    </table>
-</body>
-<% include('../../partials/foot') %>
 
-</html>
+<%- include('../../partials/head')%>
+<%- include('../../partials/header') %>
+
+<div class="section container">
+  <h5 class="grey-text section"><%= dataRestaurant.name %></h5>
+  <div class="row">
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="https://lorempixel.com/320/160/food">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+            <p><%= dataRestaurant.address %></p>
+                <p><% if (Number(dataRestaurant.openAt.slice(0,2)) <= Number(new Date().getHours()) && Number(dataRestaurant.closeAt.slice(0,2)) >= new Date().getHours()) { %>
+                    <%= dataRestaurant.openAt + ' s/d ' + dataRestaurant.closeAt %> <h4 style="color:green">OPEN</h4>
+                <% } else { %>
+                    <%= dataRestaurant.openAt + ' s/d ' + dataRestaurant.closeAt %> <h4 style="color:red">CLOSE</h4>    
+                <% } %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card horizontal">
+      <div class="card-stacked">
+        <div class="card-content">
+      <a href="/review/add/<%= dataRestaurant.id %>">Add Review</a>
+      <table border="3">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Rating</th>
+                    <th>Deskripsi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach(element=>{ %>
+                    <tr>
+                        <td><%= element.User.name %> </td>
+                        <td><%= element.rating  %></td>
+                        <td><%= element.description  %></td>                
+                    </tr>
+                <% })  %>
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<%- include('../../partials/foot') %>

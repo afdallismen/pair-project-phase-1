@@ -1,0 +1,31 @@
+<%- include('./partials/head') %>
+<%- include('./partials/header') %>
+
+<div class="section container">
+  <h5 class="grey-text section">Search Results</h5>
+  <% data.forEach(el=>{%>
+  <div class="row">
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="https://lorempixel.com/320/160/food">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <b><h5><%= el.name %></h5></b>
+          <p><%= el.address %></p>
+                <p><% if (Number(el.openAt.slice(0,2)) <= Number(new Date().getHours()) && Number(el.closeAt.slice(0,2)) >= new Date().getHours()) { %>
+                    <%= el.openAt + ' s/d ' + el.closeAt %> <h4 style="color:green">OPEN</h4>
+                <% } else { %>
+                    <%= el.openAt + ' s/d ' + el.closeAt %> <h4 style="color:red">CLOSE</h4>    
+                <% } %></p>
+        </div>
+        <div class="card-action">
+          <a href="/restaurant/<%= el.id %>">See more</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% })%>
+</div>
+  
+<%- include('./partials/foot') %>

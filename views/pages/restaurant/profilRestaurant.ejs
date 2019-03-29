@@ -12,11 +12,8 @@
       <div class="card-stacked">
         <div class="card-content">
             <p><%= dataRestaurant.address %></p>
-                <p><% if (Number(dataRestaurant.openAt.slice(0,2)) <= Number(new Date().getHours()) && Number(dataRestaurant.closeAt.slice(0,2)) >= new Date().getHours()) { %>
-                    <%= dataRestaurant.openAt + ' s/d ' + dataRestaurant.closeAt %> <h4 style="color:green">OPEN</h4>
-                <% } else { %>
-                    <%= dataRestaurant.openAt + ' s/d ' + dataRestaurant.closeAt %> <h4 style="color:red">CLOSE</h4>    
-                <% } %></p>
+                
+                <%= status(dataRestaurant.openAt, dataRestaurant.closeAt) %>
         </div>
       </div>
     </div>

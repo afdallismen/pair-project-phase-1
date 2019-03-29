@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const Model = require('../models')
 const isLogin = require('../middleware/login')
+const status = require('../helpers/openClose')
 
 
 router.get('/', (req, res)=>{
@@ -16,11 +17,11 @@ router.get('/', (req, res)=>{
     })
 })
 
-router.get('/add/:id', isLogin, (req, res)=>{
+router.get('/add/:id', (req, res)=>{
     res.render("pages/restaurant/addRestaurant")
 })
 
-router.post('/add/:id', isLogin, (req, res)=>{
+router.post('/add/:id', (req, res)=>{
     Model.Restaurant.create({
         name: req.body.name,
         ownerId: req.session.idLogin,
@@ -118,7 +119,9 @@ router.get('/:id', (req, res)=>{
         })
     })
     .then(data=>{
-        res.render('pages/restaurant/profilRestaurant', {dataRestaurant, data})
+        res.locals.status = status
+
+        res.render('pages/restaurant/profilRestaurant', {dataRestaurant, data, status})
     })
 })
 

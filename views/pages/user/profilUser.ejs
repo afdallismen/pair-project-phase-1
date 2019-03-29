@@ -4,6 +4,7 @@
   <h4>Profile</h4>
   <h6>Hai <u><%= data.name %> !</u></h6>
   <h6>Restaurant kamu : </h6>
+  <a href="/restaurant/add/<%= data.id %>">Add Restaurant</a>
   <div class="section row grey lighten-3">
   <% data.Restaurants.forEach((el, index)=>{ %>
     <div class="col s4">

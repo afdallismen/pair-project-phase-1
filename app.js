@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs')
 const Op = Sequelize.Op
 
 
+
 const app = express()
 const PORT = 3000
 
@@ -48,7 +49,6 @@ app.get('/user/logout/:id', (req, res)=>{
         
 })
 
-
 app.use('/user', isLogin , require('./routes/userRoute'))
 app.use('/restaurant', require('./routes/restaurantRoute'))
 app.use('/review', isLogin , require('./routes/reviewRoute'))
@@ -84,7 +84,8 @@ app.post('/login', (req, res)=>{
         }
     })
     .then(data=>{
-        let check = bcrypt.compareSync(req.body.password, data.password)
+        // let check = bcrypt.compareSync(req.body.password, data.password)
+        let check = data.Check(req.body.password)
 
         if (check) {
             req.session.login = true

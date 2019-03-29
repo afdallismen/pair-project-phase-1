@@ -39,5 +39,10 @@ module.exports = (sequelize, DataTypes) => {
 
     // models.User.belongsToMany(models.Restaurant, {through: Review, foreignKey: 'CreatorId' })
   };
+
+  User.prototype.Check= function(password){
+    let check = bcrypt.compareSync(password, this.password)
+    return check
+  }
   return User;
 };
